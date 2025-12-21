@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/pankake/Documents/calenderapp/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -I/home/pankake/Documents/calenderapp/include -isystem /usr/local/lib/wx/include/gtk3-unicode-3.3 -isystem /usr/local/include/wx-3.3 -std=gnu++23 -pthread -o CMakeFiles/CalenderApp.dir/src/app.cpp.o -c /home/pankake/Documents/calenderapp/src/app.cpp",
+  "file": "/home/pankake/Documents/calenderapp/src/app.cpp",
+  "output": "CMakeFiles/CalenderApp.dir/src/app.cpp.o"
+},
+{
+  "directory": "/home/pankake/Documents/calenderapp/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -I/home/pankake/Documents/calenderapp/include -isystem /usr/local/lib/wx/include/gtk3-unicode-3.3 -isystem /usr/local/include/wx-3.3 -std=gnu++23 -pthread -o CMakeFiles/CalenderApp.dir/src/calender.cpp.o -c /home/pankake/Documents/calenderapp/src/calender.cpp",
+  "file": "/home/pankake/Documents/calenderapp/src/calender.cpp",
+  "output": "CMakeFiles/CalenderApp.dir/src/calender.cpp.o"
+},
+{
+  "directory": "/home/pankake/Documents/calenderapp/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -I/home/pankake/Documents/calenderapp/include -isystem /usr/local/lib/wx/include/gtk3-unicode-3.3 -isystem /usr/local/include/wx-3.3 -std=gnu++23 -pthread -o CMakeFiles/CalenderApp.dir/src/main_frame.cpp.o -c /home/pankake/Documents/calenderapp/src/main_frame.cpp",
+  "file": "/home/pankake/Documents/calenderapp/src/main_frame.cpp",
+  "output": "CMakeFiles/CalenderApp.dir/src/main_frame.cpp.o"
+},
+{
+  "directory": "/home/pankake/Documents/calenderapp/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -I/home/pankake/Documents/calenderapp/include -isystem /usr/local/lib/wx/include/gtk3-unicode-3.3 -isystem /usr/local/include/wx-3.3 -std=gnu++23 -pthread -o CMakeFiles/CalenderApp.dir/src/tasklist.cpp.o -c /home/pankake/Documents/calenderapp/src/tasklist.cpp",
+  "file": "/home/pankake/Documents/calenderapp/src/tasklist.cpp",
+  "output": "CMakeFiles/CalenderApp.dir/src/tasklist.cpp.o"
+},
+{
+  "directory": "/home/pankake/Documents/calenderapp/build",
+  "command": "/usr/bin/c++ -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXGTK__ -I/home/pankake/Documents/calenderapp/include -isystem /usr/local/lib/wx/include/gtk3-unicode-3.3 -isystem /usr/local/include/wx-3.3 -std=gnu++23 -pthread -o CMakeFiles/CalenderApp.dir/src/todo.cpp.o -c /home/pankake/Documents/calenderapp/src/todo.cpp",
+  "file": "/home/pankake/Documents/calenderapp/src/todo.cpp",
+  "output": "CMakeFiles/CalenderApp.dir/src/todo.cpp.o"
+}
+]
