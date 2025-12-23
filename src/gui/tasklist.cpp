@@ -6,7 +6,7 @@
 #include <wx/wx.h>
 
 TaskListPanel::TaskListPanel(wxWindow *parent)
-    : wxScrolled<wxPanel>(parent, wxID_ANY) {
+    : wxScrolledWindow(parent, wxID_ANY) {
     createControls();
     setUpSizers();
     bindEventHandlers();
@@ -33,7 +33,7 @@ void TaskListPanel::createControls() {
         sizer->Add(task_panel, todo_flags);
     }
 
-    SetSizerAndFit(sizer);
+    SetSizer(sizer);
 }
 
 void TaskListPanel::setUpSizers() {}

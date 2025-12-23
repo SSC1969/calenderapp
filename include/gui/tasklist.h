@@ -2,7 +2,7 @@
 #include "app/task.h"
 #include <wx/wx.h>
 
-class TaskListPanel : public wxScrolled<wxPanel> {
+class TaskListPanel : public wxScrolledWindow {
   public:
     TaskListPanel(wxWindow *parent);
 

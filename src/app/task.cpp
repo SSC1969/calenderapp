@@ -11,6 +11,8 @@ Task::Task(const std::string n, const std::string d,
     _duration = len;
 }
 
+int Task::id_provider = 0;
+
 bool Task::isComplete() { return _completed; }
 
 void Task::completeTask() { _completed = true; }

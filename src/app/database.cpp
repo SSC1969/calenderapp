@@ -1,5 +1,6 @@
 #include "app/database.h"
 #include "app/constants.h"
+#include "app/task.h"
 #include <filesystem>
 #include <format>
 #include <sqlite3.h>
@@ -69,18 +70,19 @@ void CalenderDatabase::initializeDatabase() {
 }
 
 int CalenderDatabase::getTaskIdProvider() {
-    std::string sql = "SELECT MAX('id') FROM 'tasks'";
+    std::string sql = "SELECT MAX(id) FROM tasks";
     sqlite3_stmt *stmt;
     sqlite3_prepare_v2(DB, sql.c_str(), sql.length(), &stmt, nullptr);
     int ec = sqlite3_step(stmt);
     int res = 0;
     if (ec == SQLITE_ROW) {
-        res = sqlite3_column_int(stmt, 1);
+        res = sqlite3_column_int(stmt, 0);
     } else if (ec != SQLITE_DONE) {
         std::cout << "Error getting new ID provider! "
                   << sqlite3_errstr(ec) << "\n";
     }
     sqlite3_finalize(stmt);
+    std::cout << "Updating task id to " << res << "\n";
     return res;
 }
 
@@ -100,8 +102,8 @@ void CalenderDatabase::bindTaskParams(Task task, sqlite3_stmt *stmt) {
 
 // CRUD methods
 void CalenderDatabase::addTask(Task task) {
-    std::string sql = "INSERT INTO 'tasks' ('id', 'name', 'description', "
-                      "'start_point', 'duration', 'completed')"
+    std::string sql = "INSERT INTO tasks (id, name, description, "
+                      "start_point, duration, completed)"
                       "VALUES(:1, :2, :3, :4, :5, :6)";
     sqlite3_stmt *stmt;
     sqlite3_prepare_v2(DB, sql.c_str(), sql.length(), &stmt, nullptr);
@@ -109,14 +111,44 @@ void CalenderDatabase::addTask(Task task) {
 
     int res = sqlite3_step(stmt);
     if (res != SQLITE_DONE) {
-        std::cout << "Error adding task! " << sqlite3_errstr(res) << "\n";
+        std::cout << "Error adding task! [" << sqlite3_errstr(res)
+                  << "]\n";
     }
+    sqlite3_finalize(stmt);
 }
-Task CalenderDatabase::updateTask(Task target_task, Task updated_task) {
-    std::string sql = "UPDATE 'tasks'"
-                      "WHERE 'name'=";
+void CalenderDatabase::updateTask(Task target_task, Task updated_task) {
+    std::string sql = "UPDATE tasks"
+                      "SET name = :2"
+                      "SET description = :3"
+                      "SET start_point = :4"
+                      "SET duration = :5"
+                      "SET completed = :6"
+                      "WHERE id=:1";
+    sqlite3_stmt *stmt;
+    sqlite3_prepare_v2(DB, sql.c_str(), sql.length(), &stmt, nullptr);
+    bindTaskParams(updated_task, stmt);
+
+    int res = sqlite3_step(stmt);
+    if (res != SQLITE_DONE) {
+        std::cout << "Error updating task! [" << sqlite3_errstr(res)
+                  << "]\n";
+    }
+    sqlite3_finalize(stmt);
 }
-void CalenderDatabase::deleteTask(Task task) {}
+void CalenderDatabase::deleteTask(Task task) {
+    std::string sql = "DELETE from tasks"
+                      "WHERE id = :1";
+    sqlite3_stmt *stmt;
+    sqlite3_prepare_v2(DB, sql.c_str(), sql.length(), &stmt, nullptr);
+    sqlite3_bind_int(stmt, 1, task.id());
+
+    int res = sqlite3_step(stmt);
+    if (res != SQLITE_DONE) {
+        std::cout << "Error deleting task! [" << sqlite3_errstr(res)
+                  << "]\n";
+    }
+    sqlite3_finalize(stmt);
+}
 
 std::vector<Task> CalenderDatabase::retrieveTasks(
     std::chrono::time_point<std::chrono::system_clock> date) {}

@@ -12,7 +12,7 @@ class CalenderDatabase {
 
     // CRUD methods
     void addTask(Task task);
-    Task updateTask(Task target_task, Task updated_task);
+    void updateTask(Task target_task, Task updated_task);
     void deleteTask(Task task);
 
     std::vector<Task>
