@@ -1,3 +1,0 @@
-/home/pankake/Documents/calenderapp/build/CMakeFiles/CalenderApp.dir
-/home/pankake/Documents/calenderapp/build/CMakeFiles/edit_cache.dir
-/home/pankake/Documents/calenderapp/build/CMakeFiles/rebuild_cache.dir
