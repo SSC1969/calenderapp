@@ -46,6 +46,7 @@ class TaskPanel : public wxPanel {
     // Event handlers
     void onNameEntered(wxCommandEvent &evt);
     void onNameFocusLost(wxFocusEvent &evt);
+    void onCheckboxChanged(wxCommandEvent &evt);
 
     // Other private methods
     void updateTaskName();

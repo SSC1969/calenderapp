@@ -1,6 +1,10 @@
 #include "gui/main_frame.h"
 #include "gui/calender.h"
 #include "gui/todo.h"
+#include <wx/anybutton.h>
+#include <wx/event.h>
+#include <wx/gdicmn.h>
+#include <wx/notebook.h>
 #include <wx/sizer.h>
 #include <wx/wx.h>
 
@@ -19,9 +23,13 @@ void MainFrame::createControls() {
     panel = new wxPanel(this);
     panel->SetFont(main_font);
 
-    todo_panel = new TodoPanel(panel);
+    notebook = new wxNotebook(panel, wxID_ANY, wxDefaultPosition,
+                              wxDefaultSize, wxNB_LEFT | wxNB_NOPAGETHEME);
+
+    todo_panel = new TodoPanel(notebook);
     todo_panel->init();
-    calender_panel = new CalenderPanel(panel);
+
+    calender_panel = new CalenderPanel(notebook);
     calender_panel->init();
 
     CreateStatusBar();
@@ -29,10 +37,9 @@ void MainFrame::createControls() {
 
 void MainFrame::setUpSizers() {
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
-    sizer->Add(todo_panel,
-               wxSizerFlags().DoubleBorder(wxALL).Expand().Proportion(1));
-    sizer->Add(calender_panel,
-               wxSizerFlags().DoubleBorder(wxALL).Expand().Proportion(3));
+    sizer->Add(notebook, wxSizerFlags().Expand().Proportion(1));
+    notebook->AddPage(todo_panel, "To-Do");
+    notebook->AddPage(calender_panel, "Calender");
 
     panel->SetSizer(sizer);
     sizer->SetSizeHints(this);

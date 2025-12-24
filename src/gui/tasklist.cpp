@@ -117,6 +117,7 @@ void TaskPanel::setUpSizers() {
 void TaskPanel::bindEventHandlers() {
     name->Bind(wxEVT_TEXT_ENTER, &TaskPanel::onNameEntered, this);
     name->Bind(wxEVT_KILL_FOCUS, &TaskPanel::onNameFocusLost, this);
+    checkbox->Bind(wxEVT_CHECKBOX, &TaskPanel::onCheckboxChanged, this);
 }
 
 void TaskPanel::onNameEntered(wxCommandEvent &evt) { updateTaskName(); }
@@ -124,6 +125,16 @@ void TaskPanel::onNameEntered(wxCommandEvent &evt) { updateTaskName(); }
 void TaskPanel::onNameFocusLost(wxFocusEvent &evt) {
     evt.Skip();
     updateTaskName();
+}
+
+void TaskPanel::onCheckboxChanged(wxCommandEvent &evt) {
+    std::ostringstream ss;
+    ss << "Updating task " << task;
+    wxLogStatus(ss.str());
+    std::cout << ss.str();
+
+    task.setCompleted(checkbox->GetValue());
+    parent->updateDatabase(task);
 }
 
 void TaskPanel::setTask(Task new_task) {
@@ -137,6 +148,7 @@ void TaskPanel::updateTaskName() {
     std::ostringstream ss;
     ss << "Updating task " << task;
     wxLogStatus(ss.str());
+    std::cout << ss.str();
 
     task.name = name->GetValue().ToStdString();
     parent->updateDatabase(task);
