@@ -17,8 +17,7 @@ MainFrame::MainFrame(const wxString &title)
 }
 
 void MainFrame::createControls() {
-    SetBackgroundColour(wxColour("green"));
-    wxFont main_font(wxFontInfo(wxSize(0, 20)));
+    wxFont main_font(wxFontInfo(wxSize(0, 18)));
 
     panel = new wxPanel(this);
     panel->SetFont(main_font);
@@ -26,10 +25,12 @@ void MainFrame::createControls() {
     notebook = new wxNotebook(panel, wxID_ANY, wxDefaultPosition,
                               wxDefaultSize, wxNB_LEFT | wxNB_NOPAGETHEME);
 
-    todo_panel = new TodoPanel(notebook);
+    todo_border = new wxPanel(notebook);
+    todo_panel = new TodoPanel(todo_border);
     todo_panel->init();
 
-    calender_panel = new CalenderPanel(notebook);
+    calender_border = new wxPanel(notebook);
+    calender_panel = new CalenderPanel(calender_border);
     calender_panel->init();
 
     CreateStatusBar();
@@ -37,9 +38,18 @@ void MainFrame::createControls() {
 
 void MainFrame::setUpSizers() {
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
-    sizer->Add(notebook, wxSizerFlags().Expand().Proportion(1));
-    notebook->AddPage(todo_panel, "To-Do");
-    notebook->AddPage(calender_panel, "Calender");
+    sizer->Add(notebook, wxSizerFlags(1).Expand());
+
+    wxBoxSizer *todo_sizer = new wxBoxSizer(wxHORIZONTAL);
+    todo_sizer->Add(todo_panel, wxSizerFlags(1).Expand().Border());
+    todo_border->SetSizer(todo_sizer);
+
+    notebook->AddPage(todo_border, "To-Do");
+    wxBoxSizer *calender_sizer = new wxBoxSizer(wxHORIZONTAL);
+    calender_sizer->Add(calender_panel, wxSizerFlags(1).Expand().Border());
+    calender_border->SetSizer(calender_sizer);
+
+    notebook->AddPage(calender_border, "Calender");
 
     panel->SetSizer(sizer);
     sizer->SetSizeHints(this);

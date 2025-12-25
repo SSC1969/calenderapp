@@ -1,5 +1,4 @@
 #pragma once
-#include "gui/app_panel.h"
 #include "gui/calender.h"
 #include "gui/todo.h"
 #include <wx/event.h>
@@ -23,6 +22,8 @@ class MainFrame : public wxFrame {
     // Control members
     wxPanel *panel;
     wxNotebook *notebook;
+    wxPanel *todo_border;
     TodoPanel *todo_panel;
+    wxPanel *calender_border;
     CalenderPanel *calender_panel;
 };

@@ -1,14 +1,23 @@
 #pragma once
 #include "app/database.h"
 #include "app/task.h"
+#include "gui/widgets/datetimepicker.h"
+#include <wx/datectrl.h>
 #include <wx/event.h>
+#include <wx/timectrl.h>
 #include <wx/wx.h>
+
+enum ContextOptions { coAdd, coEdit, coDelete };
 
 class TaskListPanel : public wxScrolledWindow {
   public:
     TaskListPanel(wxWindow *parent);
 
+    void addTask(Task task);
     void updateDatabase(Task task);
+    void deleteTask(int id);
+
+    wxMenu *context_menu;
 
   private:
     // Setup methods
@@ -17,7 +26,6 @@ class TaskListPanel : public wxScrolledWindow {
     void bindEventHandlers();
 
     // Event handlers
-    void onContextMenu(wxContextMenuEvent &evt);
 
     // Other private methods
     void loadTasks(std::vector<Task> tasks);
@@ -26,7 +34,6 @@ class TaskListPanel : public wxScrolledWindow {
     // Control members
     wxStaticText *placeholder_text;
     wxBoxSizer *sizer;
-    wxMenu *context_menu;
 
     CalenderDatabase database;
     wxSizerFlags todo_flags = wxSizerFlags().Expand();
@@ -44,19 +51,26 @@ class TaskPanel : public wxPanel {
     void bindEventHandlers();
 
     // Event handlers
-    void onNameEntered(wxCommandEvent &evt);
+    void onContextMenu(wxContextMenuEvent &evt);
+    void onMenuEvent(wxCommandEvent &evt);
+
+    void onNameTextSelected(wxMouseEvent &evt);
+    void onNameEnterPressed(wxCommandEvent &evt);
     void onNameFocusLost(wxFocusEvent &evt);
     void onCheckboxChanged(wxCommandEvent &evt);
 
     // Other private methods
     void updateTaskName();
+    void enableNameEdit();
 
     Task task;
     TaskListPanel *parent;
 
     // Control members
-    wxTextCtrl *name;
-    wxPanel *point_panel;
-
+    wxBoxSizer *sizer;
     wxCheckBox *checkbox;
+    wxStaticText *name;
+    wxTextCtrl *name_entry;
+
+    wxCustomDateTimePicker *start_point;
 };

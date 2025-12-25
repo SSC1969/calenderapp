@@ -13,8 +13,11 @@ class TodoPanel : public AppPanel {
     void bindEventHandlers() override;
 
     // Event handlers
+    void onCreateTaskButtonPressed(wxCommandEvent &evt);
+    void onInputEnterPressed(wxCommandEvent &evt);
 
     // Other private methods
+    void addTaskFromInput();
 
     // Control members
     wxStaticText *headline;
